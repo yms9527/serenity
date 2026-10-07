@@ -56,7 +56,7 @@ export function layout({ site, title, description, body, active = '' }) {
 
 function postCard(post) {
   return `<article class="post-card">
-<h2 class="card-title"><a href="/posts/${post.slug}/">${escapeHtml(post.title)}</a></h2>
+<h2 class="card-title"><a href="/posts/${encodeURIComponent(post.slug)}/">${escapeHtml(post.title)}</a></h2>
 ${metaLine(post)}
 <p class="post-excerpt">${escapeHtml(post.excerpt)}</p>
 </article>`;
@@ -71,8 +71,8 @@ export function homePage({ site, posts }) {
 
 export function postPage({ site, post, prev, next }) {
   const nav = `<nav class="post-nav">
-${prev ? `<a class="prev" href="/posts/${prev.slug}/">← 上一篇:${escapeHtml(prev.title)}</a>` : '<span></span>'}
-${next ? `<a class="next" href="/posts/${next.slug}/">下一篇:${escapeHtml(next.title)} →</a>` : '<span></span>'}
+${prev ? `<a class="prev" href="/posts/${encodeURIComponent(prev.slug)}/">← 上一篇:${escapeHtml(prev.title)}</a>` : '<span></span>'}
+${next ? `<a class="next" href="/posts/${encodeURIComponent(next.slug)}/">下一篇:${escapeHtml(next.title)} →</a>` : '<span></span>'}
 </nav>`;
   const body = `<article class="post">
 <h1 class="post-title">${escapeHtml(post.title)}</h1>

@@ -78,6 +78,16 @@ test('posts 为空时构建成功并显示空状态', async (t) => {
   assert.match(await read(out, 'rss.xml'), /<rss version="2.0"/);
 });
 
+test('特殊字符文件名:链接百分号编码,解码后可读到实际文件', async (t) => {
+  const { out } = await buildFixture('encoded');
+  t.after(() => rm(out, { recursive: true, force: true }));
+  const html = await read(out, 'index.html');
+  assert.match(html, /href="\/posts\/a%26b\/"/);
+  const m = html.match(/href="\/posts\/([^"]+)\/"/);
+  assert.ok(m, '首页应有文章链接');
+  assert.match(await read(out, `posts/${decodeURIComponent(m[1])}/index.html`), /特殊字符文件名/);
+});
+
 test('文章缺 title 时构建失败且报出文件名', async (t) => {
   const out = await mkdtemp(join(tmpdir(), 'serenity-'));
   t.after(() => rm(out, { recursive: true, force: true }));
