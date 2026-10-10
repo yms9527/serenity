@@ -24,14 +24,19 @@ node serve.js     # 本地预览 http://localhost:3000
 node --test       # 跑测试
 ```
 
-发布:提交并推送到 GitHub,部署平台会自动重新构建。
+发布:运行 `bash deploy-pages.sh`(自动构建并推送到 GitHub Pages,约 1 分钟生效);源码记得照常 `git push`。
 
-## 部署(Vercel 或 Netlify,二选一)
+## 部署(GitHub Pages)
 
-1. 把这个仓库推送到 GitHub
-2. 在 Vercel/Netlify 里选择 "Import Git Repository" 连接仓库
-3. 构建命令 `node build.js`,发布目录 `dist`(仓库已含配置文件,一般会自动识别)
-4. 部署完成后,把 `site.config.js` 里的 `url` 改成真实网址(RSS 需要绝对链接)
+线上地址:<https://yms9527.github.io/>;发布仓库 `yms9527/yms9527.github.io` 只装构建产物。
+
+一键发布:
+
+```bash
+bash deploy-pages.sh   # 构建 → 推送到发布仓库 → 约 1 分钟生效
+```
+
+发布前确保 GitHub 能连上(这台电脑上开着 Steam++ 加速即可)。`site.config.js` 里的 `url` 是 RSS 用的绝对网址,以后换域名时改它。
 
 ## 目录说明
 
